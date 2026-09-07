@@ -2,85 +2,62 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
 <title>Lava Jato Pro</title>
 <style>
-:root{
-  --bg:#0f172a;
-  --card:#111827;
-  --card2:#1f2937;
-  --text:#f8fafc;
-  --muted:#94a3b8;
-  --accent:#f97316;
-  --accent2:#fb923c;
-  --success:#22c55e;
-  --danger:#ef4444;
-  --border:#334155;
-}
+:root{--bg:#0b1220;--sidebar:#0a1020;--card:#111827;--panel:#0f172a;--border:#334155;--text:#f8fafc;--muted:#94a3b8;--accent:#f97316;--success:#22c55e;--danger:#ef4444;--shadow:0 12px 32px rgba(0,0,0,.18)}
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,Arial,sans-serif;background:#0b1220;color:var(--text)}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;min-width:320px;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+button{touch-action:manipulation}
 .app{display:flex;min-height:100vh}
-.sidebar{width:230px;background:#0a1020;border-right:1px solid var(--border);padding:22px 16px;position:fixed;left:0;top:0;bottom:0}
-.brand{font-size:24px;font-weight:800;margin-bottom:28px}
-.brand span{color:var(--accent)}
-.nav button{width:100%;border:0;background:transparent;color:#cbd5e1;padding:12px 14px;text-align:left;border-radius:10px;margin:4px 0;font-size:15px;cursor:pointer}
+.sidebar{width:240px;background:var(--sidebar);border-right:1px solid var(--border);padding:22px 16px;position:fixed;left:0;top:0;bottom:0;z-index:30}
+.brand{font-size:24px;font-weight:800;margin-bottom:28px;white-space:nowrap}.brand span{color:var(--accent)}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav button{width:100%;min-height:46px;border:0;background:transparent;color:#cbd5e1;padding:12px 14px;text-align:left;border-radius:10px;font-size:15px;cursor:pointer;transition:.18s ease}
 .nav button.active,.nav button:hover{background:#1e293b;color:#fff}
-.main{margin-left:230px;width:calc(100% - 230px);padding:24px}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-.topbar h1{margin:0;font-size:26px}
-.topbar small{color:var(--muted)}
-.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
-.btn.primary{background:var(--accent);color:#fff}
-.btn.secondary{background:#1e293b;color:#fff}
-.btn.danger{background:var(--danger);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.card{background:linear-gradient(180deg,#111827,#0f172a);border:1px solid var(--border);border-radius:16px;padding:18px}
-.metric{font-size:30px;font-weight:800;margin-top:8px}
-.muted{color:var(--muted)}
-.section{display:none}
-.section.active{display:block}
-.panel{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:18px}
-table{width:100%;border-collapse:collapse}
-th,td{text-align:left;padding:12px;border-bottom:1px solid #243041;font-size:14px}
-th{color:#cbd5e1}
-.badge{padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700;display:inline-block}
-.badge.wait{background:#78350f;color:#fde68a}
-.badge.run{background:#1e3a8a;color:#bfdbfe}
-.badge.done{background:#14532d;color:#bbf7d0}
-.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-input,select,textarea{width:100%;padding:11px 12px;background:#0b1220;color:#fff;border:1px solid var(--border);border-radius:10px}
-textarea{min-height:90px;resize:vertical}
-label{display:block;font-size:13px;color:#cbd5e1;margin-bottom:6px}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.kpi-accent{border-left:4px solid var(--accent)}
-.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
-.quick button{padding:16px;border-radius:14px;border:1px solid var(--border);background:#111827;color:#fff;text-align:left;cursor:pointer}
-.quick button b{display:block;margin-bottom:5px}
-.empty{padding:24px;text-align:center;color:var(--muted)}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:18px;z-index:50}
-.modal.open{display:flex}
-.modal-box{width:min(720px,96vw);max-height:92vh;overflow:auto;background:#111827;border:1px solid var(--border);border-radius:16px;padding:20px}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.close{background:transparent;border:0;color:#fff;font-size:26px;cursor:pointer}
-.notice{background:#3f2a10;border:1px solid #7c4a10;color:#fed7aa;padding:12px 14px;border-radius:10px;margin-bottom:16px;font-size:13px}
-@media(max-width:900px){
-  .sidebar{width:76px;padding:18px 10px}
-  .brand{font-size:0}
-  .brand:after{content:"LJ";font-size:22px;color:var(--accent);font-weight:900}
-  .nav button{font-size:0;text-align:center}
-  .nav button:before{font-size:20px}
-  .nav button[data-page="dashboard"]:before{content:"⌂"}
-  .nav button[data-page="ordens"]:before{content:"▣"}
-  .nav button[data-page="clientes"]:before{content:"♟"}
-  .nav button[data-page="caixa"]:before{content:"$"}
-  .main{margin-left:76px;width:calc(100% - 76px);padding:16px}
-  .grid,.quick{grid-template-columns:repeat(2,1fr)}
+.main{margin-left:240px;width:calc(100% - 240px);padding:24px;min-width:0}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.topbar h1{margin:0;font-size:clamp(22px,3vw,28px)}.topbar small{color:var(--muted)}
+.btn{border:0;border-radius:10px;padding:11px 15px;min-height:44px;font-weight:700;cursor:pointer;white-space:nowrap}.btn.primary{background:var(--accent);color:#fff}.btn.secondary{background:#1e293b;color:#fff}.btn.danger{background:var(--danger);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.card{background:linear-gradient(180deg,var(--card),var(--panel));border:1px solid var(--border);border-radius:16px;padding:18px;min-width:0;box-shadow:var(--shadow)}
+.metric{font-size:clamp(24px,3vw,30px);font-weight:800;margin-top:8px;overflow-wrap:anywhere}.muted{color:var(--muted)}
+.section{display:none}.section.active{display:block}.panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:18px;min-width:0;box-shadow:var(--shadow)}
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}table{width:100%;min-width:720px;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid #243041;font-size:14px;vertical-align:middle}th{color:#cbd5e1;white-space:nowrap}
+.badge{padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700;display:inline-block;white-space:nowrap}.badge.wait{background:#78350f;color:#fde68a}.badge.run{background:#1e3a8a;color:#bfdbfe}.badge.done{background:#14532d;color:#bbf7d0}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}input,select,textarea{width:100%;padding:12px;background:var(--bg);color:#fff;border:1px solid var(--border);border-radius:10px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(249,115,22,.15)}textarea{min-height:90px;resize:vertical}label{display:block;font-size:13px;color:#cbd5e1;margin-bottom:6px}.actions{display:flex;gap:8px;flex-wrap:wrap}.kpi-accent{border-left:4px solid var(--accent)}
+.quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}.quick button{min-height:84px;padding:16px;border-radius:14px;border:1px solid var(--border);background:var(--card);color:#fff;text-align:left;cursor:pointer}.quick button b{display:block;margin-bottom:5px}.empty{padding:28px 18px;text-align:center;color:var(--muted)}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);align-items:center;justify-content:center;padding:18px;z-index:100}.modal.open{display:flex}.modal-box{width:min(720px,100%);max-height:92dvh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.45)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.modal-head h3{margin:0}.close{background:transparent;border:0;color:#fff;font-size:28px;line-height:1;cursor:pointer;min-width:44px;min-height:44px}
+.mobile-title{display:none}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:780px){
+  body{padding-bottom:76px}
+  .app{display:block}
+  .sidebar{width:100%;height:68px;top:auto;right:0;bottom:0;padding:7px 8px calc(7px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--border);z-index:60}
+  .brand{display:none}
+  .nav{height:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .nav button{padding:6px 4px;min-height:52px;text-align:center;border-radius:10px;font-size:11px;line-height:1.15;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+  .nav button:before{font-size:20px;line-height:1}.nav button[data-page="dashboard"]:before{content:"⌂"}.nav button[data-page="ordens"]:before{content:"▣"}.nav button[data-page="clientes"]:before{content:"♟"}.nav button[data-page="caixa"]:before{content:"$"}
+  .main{margin-left:0;width:100%;padding:16px 14px 20px}
+  .topbar{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.94);backdrop-filter:blur(12px);margin:-16px -14px 18px;padding:14px;border-bottom:1px solid rgba(51,65,85,.65);align-items:center}
+  .topbar .btn{padding:10px 12px}
+  .grid,.quick{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{padding:15px}.panel{padding:14px;border-radius:14px}
+  .form-grid{grid-template-columns:1fr}
+  input,select,textarea{font-size:16px}
+  .modal{align-items:flex-end;padding:0}
+  .modal-box{width:100%;max-height:94dvh;border-radius:18px 18px 0 0;padding:18px 14px calc(18px + env(safe-area-inset-bottom))}
+  .actions .btn{flex:1 1 140px}
 }
-@media(max-width:600px){
-  .grid,.quick,.form-grid{grid-template-columns:1fr}
-  .topbar{align-items:flex-start;gap:10px;flex-direction:column}
-  table{display:block;overflow-x:auto}
+@media(max-width:520px){
+  .main{padding-left:12px;padding-right:12px}.topbar{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px;gap:10px}.topbar h1{font-size:21px}.topbar small{font-size:11px}.topbar .btn{font-size:13px;min-height:42px}
+  .grid{grid-template-columns:1fr 1fr}.quick{grid-template-columns:1fr}.quick button{min-height:72px}
+  .card{padding:14px}.metric{font-size:24px}.panel h3{font-size:17px}
+  .table-wrap{margin:0 -4px;width:calc(100% + 8px)}
+  .nav button{font-size:10px}
 }
+@media(max-width:380px){.grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.topbar .btn{width:100%}.nav button{font-size:9px}.nav button:before{font-size:18px}}
 </style>
 </head>
 <body>
@@ -94,238 +71,29 @@ label{display:block;font-size:13px;color:#cbd5e1;margin-bottom:6px}
       <button data-page="caixa">Caixa</button>
     </div>
   </aside>
-
   <main class="main">
-    <div class="topbar">
-      <div>
-        <h1 id="pageTitle">Dashboard</h1>
-        <small id="today"></small>
-      </div>
-      <button class="btn primary" onclick="openOrder()">+ Nova Ordem</button>
-    </div>
-
+    <div class="topbar"><div><h1 id="pageTitle">Dashboard</h1><small id="today"></small></div><button class="btn primary" onclick="openOrder()">+ Nova Ordem</button></div>
     <section id="dashboard" class="section active">
-      <div class="grid">
-        <div class="card kpi-accent"><div class="muted">Veículos hoje</div><div class="metric" id="kpiCars">0</div></div>
-        <div class="card"><div class="muted">Em atendimento</div><div class="metric" id="kpiOpen">0</div></div>
-        <div class="card"><div class="muted">Finalizados</div><div class="metric" id="kpiDone">0</div></div>
-        <div class="card"><div class="muted">Faturamento</div><div class="metric" id="kpiRevenue">R$ 0,00</div></div>
-      </div>
-
-      <div class="quick">
-        <button onclick="openOrder()"><b>Nova Ordem</b><span class="muted">Registrar veículo e serviço</span></button>
-        <button onclick="openClient()"><b>Novo Cliente</b><span class="muted">Cadastro rápido</span></button>
-        <button onclick="showPage('ordens')"><b>Ver Fila</b><span class="muted">Acompanhar serviços</span></button>
-        <button onclick="showPage('caixa')"><b>Caixa</b><span class="muted">Recebimentos do dia</span></button>
-      </div>
-
-      <div class="panel">
-        <h3>Serviços em andamento</h3>
-        <div id="dashOrders"></div>
-      </div>
+      <div class="grid"><div class="card kpi-accent"><div class="muted">Veículos hoje</div><div class="metric" id="kpiCars">0</div></div><div class="card"><div class="muted">Em atendimento</div><div class="metric" id="kpiOpen">0</div></div><div class="card"><div class="muted">Finalizados</div><div class="metric" id="kpiDone">0</div></div><div class="card"><div class="muted">Faturamento</div><div class="metric" id="kpiRevenue">R$ 0,00</div></div></div>
+      <div class="quick"><button onclick="openOrder()"><b>Nova Ordem</b><span class="muted">Registrar veículo e serviço</span></button><button onclick="openClient()"><b>Novo Cliente</b><span class="muted">Cadastro rápido</span></button><button onclick="showPage('ordens')"><b>Ver Fila</b><span class="muted">Acompanhar serviços</span></button><button onclick="showPage('caixa')"><b>Caixa</b><span class="muted">Recebimentos do dia</span></button></div>
+      <div class="panel"><h3>Serviços em andamento</h3><div id="dashOrders"></div></div>
     </section>
-
-    <section id="ordens" class="section">
-      <div class="panel">
-        <div class="actions" style="justify-content:space-between;align-items:center">
-          <h3 style="margin:0">Ordens de Serviço</h3>
-          <button class="btn primary" onclick="openOrder()">+ Nova Ordem</button>
-        </div>
-        <div id="ordersTable"></div>
-      </div>
-    </section>
-
-    <section id="clientes" class="section">
-      <div class="panel">
-        <div class="actions" style="justify-content:space-between;align-items:center">
-          <h3 style="margin:0">Clientes</h3>
-          <button class="btn primary" onclick="openClient()">+ Novo Cliente</button>
-        </div>
-        <div id="clientsTable"></div>
-      </div>
-    </section>
-
-    <section id="caixa" class="section">
-      <div class="grid">
-        <div class="card"><div class="muted">Recebido hoje</div><div class="metric" id="cashToday">R$ 0,00</div></div>
-        <div class="card"><div class="muted">PIX</div><div class="metric" id="cashPix">R$ 0,00</div></div>
-        <div class="card"><div class="muted">Dinheiro</div><div class="metric" id="cashMoney">R$ 0,00</div></div>
-        <div class="card"><div class="muted">Cartão</div><div class="metric" id="cashCard">R$ 0,00</div></div>
-      </div>
-      <div class="panel">
-        <h3>Recebimentos</h3>
-        <div id="cashTable"></div>
-      </div>
-    </section>
+    <section id="ordens" class="section"><div class="panel"><div class="actions" style="justify-content:space-between;align-items:center"><h3 style="margin:0">Ordens de Serviço</h3><button class="btn primary" onclick="openOrder()">+ Nova Ordem</button></div><div id="ordersTable"></div></div></section>
+    <section id="clientes" class="section"><div class="panel"><div class="actions" style="justify-content:space-between;align-items:center"><h3 style="margin:0">Clientes</h3><button class="btn primary" onclick="openClient()">+ Novo Cliente</button></div><div id="clientsTable"></div></div></section>
+    <section id="caixa" class="section"><div class="grid"><div class="card"><div class="muted">Recebido hoje</div><div class="metric" id="cashToday">R$ 0,00</div></div><div class="card"><div class="muted">PIX</div><div class="metric" id="cashPix">R$ 0,00</div></div><div class="card"><div class="muted">Dinheiro</div><div class="metric" id="cashMoney">R$ 0,00</div></div><div class="card"><div class="muted">Cartão</div><div class="metric" id="cashCard">R$ 0,00</div></div></div><div class="panel"><h3>Recebimentos</h3><div id="cashTable"></div></div></section>
   </main>
 </div>
-
-<div class="modal" id="orderModal">
-  <div class="modal-box">
-    <div class="modal-head"><h3>Nova Ordem de Serviço</h3><button class="close" onclick="closeModal('orderModal')">×</button></div>
-    <div class="form-grid">
-      <div><label>Cliente</label><input id="oClient" placeholder="Nome do cliente"></div>
-      <div><label>Telefone</label><input id="oPhone" placeholder="(81) 99999-9999"></div>
-      <div><label>Placa</label><input id="oPlate" placeholder="ABC1D23"></div>
-      <div><label>Veículo</label><input id="oCar" placeholder="Onix, Gol, HB20..."></div>
-      <div><label>Serviço</label>
-        <select id="oService">
-          <option>Lavagem Simples</option>
-          <option>Lavagem Completa</option>
-          <option>Lavagem + Cera</option>
-          <option>Higienização</option>
-          <option>Polimento</option>
-        </select>
-      </div>
-      <div><label>Valor (R$)</label><input id="oValue" type="number" min="0" step="0.01" value="40"></div>
-      <div><label>Status</label>
-        <select id="oStatus">
-          <option value="Aguardando">Aguardando</option>
-          <option value="Em atendimento">Em atendimento</option>
-          <option value="Finalizado">Finalizado</option>
-        </select>
-      </div>
-      <div><label>Pagamento</label>
-        <select id="oPayment">
-          <option>PIX</option><option>Dinheiro</option><option>Cartão</option>
-        </select>
-      </div>
-    </div>
-    <div style="margin-top:12px"><label>Observações</label><textarea id="oNotes" placeholder="Observações do veículo/serviço"></textarea></div>
-    <div class="actions" style="justify-content:flex-end;margin-top:16px">
-      <button class="btn secondary" onclick="closeModal('orderModal')">Cancelar</button>
-      <button class="btn primary" onclick="saveOrder()">Salvar Ordem</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="clientModal">
-  <div class="modal-box">
-    <div class="modal-head"><h3>Novo Cliente</h3><button class="close" onclick="closeModal('clientModal')">×</button></div>
-    <div class="form-grid">
-      <div><label>Nome</label><input id="cName" placeholder="Nome completo"></div>
-      <div><label>Telefone</label><input id="cPhone" placeholder="(81) 99999-9999"></div>
-      <div><label>Placa</label><input id="cPlate" placeholder="ABC1D23"></div>
-      <div><label>Veículo</label><input id="cCar" placeholder="Modelo do veículo"></div>
-    </div>
-    <div class="actions" style="justify-content:flex-end;margin-top:16px">
-      <button class="btn secondary" onclick="closeModal('clientModal')">Cancelar</button>
-      <button class="btn primary" onclick="saveClient()">Salvar Cliente</button>
-    </div>
-  </div>
-</div>
-
+<div class="modal" id="orderModal"><div class="modal-box"><div class="modal-head"><h3>Nova Ordem de Serviço</h3><button class="close" onclick="closeModal('orderModal')">×</button></div><div class="form-grid"><div><label>Cliente</label><input id="oClient" placeholder="Nome do cliente"></div><div><label>Telefone</label><input id="oPhone" placeholder="(81) 99999-9999"></div><div><label>Placa</label><input id="oPlate" placeholder="ABC1D23"></div><div><label>Veículo</label><input id="oCar" placeholder="Onix, Gol, HB20..."></div><div><label>Serviço</label><select id="oService"><option>Lavagem Simples</option><option>Lavagem Completa</option><option>Lavagem + Cera</option><option>Higienização</option><option>Polimento</option></select></div><div><label>Valor (R$)</label><input id="oValue" type="number" min="0" step="0.01" value="40"></div><div><label>Status</label><select id="oStatus"><option value="Aguardando">Aguardando</option><option value="Em atendimento">Em atendimento</option><option value="Finalizado">Finalizado</option></select></div><div><label>Pagamento</label><select id="oPayment"><option>PIX</option><option>Dinheiro</option><option>Cartão</option></select></div></div><div style="margin-top:12px"><label>Observações</label><textarea id="oNotes" placeholder="Observações do veículo/serviço"></textarea></div><div class="actions" style="justify-content:flex-end;margin-top:16px"><button class="btn secondary" onclick="closeModal('orderModal')">Cancelar</button><button class="btn primary" onclick="saveOrder()">Salvar Ordem</button></div></div></div>
+<div class="modal" id="clientModal"><div class="modal-box"><div class="modal-head"><h3>Novo Cliente</h3><button class="close" onclick="closeModal('clientModal')">×</button></div><div class="form-grid"><div><label>Nome</label><input id="cName" placeholder="Nome completo"></div><div><label>Telefone</label><input id="cPhone" placeholder="(81) 99999-9999"></div><div><label>Placa</label><input id="cPlate" placeholder="ABC1D23"></div><div><label>Veículo</label><input id="cCar" placeholder="Modelo do veículo"></div></div><div class="actions" style="justify-content:flex-end;margin-top:16px"><button class="btn secondary" onclick="closeModal('clientModal')">Cancelar</button><button class="btn primary" onclick="saveClient()">Salvar Cliente</button></div></div></div>
 <script>
-const money = v => Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-const todayKey = () => new Date().toISOString().slice(0,10);
-const load = (k, d=[]) => JSON.parse(localStorage.getItem(k)||JSON.stringify(d));
-const save = (k,v) => localStorage.setItem(k,JSON.stringify(v));
-
-// Limpeza única dos dados de demonstração da primeira versão publicada.
-// Depois desta migração, novos cadastros continuam sendo salvos normalmente.
-const CLEAN_VERSION = 'lj_clean_v1';
-if(localStorage.getItem(CLEAN_VERSION) !== '1'){
-  localStorage.removeItem('lj_orders');
-  localStorage.removeItem('lj_clients');
-  localStorage.setItem(CLEAN_VERSION,'1');
-}
-if(!localStorage.getItem('lj_orders')) save('lj_orders',[]);
-if(!localStorage.getItem('lj_clients')) save('lj_clients',[]);
-
-document.getElementById('today').textContent = new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
-
-function showPage(page){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
-  document.getElementById(page).classList.add('active');
-  document.querySelector(`.nav button[data-page="${page}"]`).classList.add('active');
-  const titles={dashboard:'Dashboard',ordens:'Ordens de Serviço',clientes:'Clientes',caixa:'Caixa'};
-  document.getElementById('pageTitle').textContent=titles[page];
-  render();
-}
-function openOrder(){document.getElementById('orderModal').classList.add('open')}
-function openClient(){document.getElementById('clientModal').classList.add('open')}
-function closeModal(id){document.getElementById(id).classList.remove('open')}
-
-function saveOrder(){
-  const client=document.getElementById('oClient').value.trim();
-  const plate=document.getElementById('oPlate').value.trim().toUpperCase();
-  if(!client || !plate){alert('Informe cliente e placa.');return}
-  const orders=load('lj_orders');
-  const o={
-    id:(orders.length?Math.max(...orders.map(x=>x.id)):1000)+1,
-    date:todayKey(),
-    client,
-    phone:document.getElementById('oPhone').value.trim(),
-    plate,
-    car:document.getElementById('oCar').value.trim(),
-    service:document.getElementById('oService').value,
-    value:Number(document.getElementById('oValue').value||0),
-    status:document.getElementById('oStatus').value,
-    payment:document.getElementById('oPayment').value,
-    notes:document.getElementById('oNotes').value.trim()
-  };
-  orders.push(o); save('lj_orders',orders);
-
-  let clients=load('lj_clients');
-  if(!clients.some(c=>c.plate===plate)){
-    clients.push({id:Date.now(),name:client,phone:o.phone,plate,car:o.car});
-    save('lj_clients',clients);
-  }
-  closeModal('orderModal');
-  ['oClient','oPhone','oPlate','oCar','oNotes'].forEach(id=>document.getElementById(id).value='');
-  render(); showPage('ordens');
-}
-function saveClient(){
-  const name=document.getElementById('cName').value.trim();
-  if(!name){alert('Informe o nome.');return}
-  const clients=load('lj_clients');
-  clients.push({id:Date.now(),name,phone:cPhone.value.trim(),plate:cPlate.value.trim().toUpperCase(),car:cCar.value.trim()});
-  save('lj_clients',clients);
-  closeModal('clientModal');
-  ['cName','cPhone','cPlate','cCar'].forEach(id=>document.getElementById(id).value='');
-  render();
-}
-function setStatus(id,status){
-  const orders=load('lj_orders').map(o=>o.id===id?{...o,status}:o);
-  save('lj_orders',orders); render();
-}
-function delOrder(id){
-  if(confirm('Excluir esta ordem?')){
-    save('lj_orders',load('lj_orders').filter(o=>o.id!==id)); render();
-  }
-}
-function badge(status){
-  const cls=status==='Finalizado'?'done':status==='Em atendimento'?'run':'wait';
-  return `<span class="badge ${cls}">${status}</span>`;
-}
-function render(){
-  const orders=load('lj_orders');
-  const clients=load('lj_clients');
-  const today=todayKey();
-  const todayOrders=orders.filter(o=>o.date===today);
-  const done=todayOrders.filter(o=>o.status==='Finalizado');
-  const open=todayOrders.filter(o=>o.status!=='Finalizado');
-  const revenue=done.reduce((s,o)=>s+Number(o.value||0),0);
-  kpiCars.textContent=todayOrders.length;
-  kpiOpen.textContent=open.length;
-  kpiDone.textContent=done.length;
-  kpiRevenue.textContent=money(revenue);
-
-  dashOrders.innerHTML=open.length?`<table><thead><tr><th>OS</th><th>Cliente</th><th>Placa</th><th>Serviço</th><th>Status</th></tr></thead><tbody>${open.map(o=>`<tr><td>#${o.id}</td><td>${o.client}</td><td>${o.plate}</td><td>${o.service}</td><td>${badge(o.status)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhum veículo em atendimento.</div>';
-
-  ordersTable.innerHTML=orders.length?`<table><thead><tr><th>OS</th><th>Cliente</th><th>Veículo</th><th>Serviço</th><th>Valor</th><th>Status</th><th>Ações</th></tr></thead><tbody>${orders.slice().reverse().map(o=>`<tr><td>#${o.id}</td><td>${o.client}<br><span class="muted">${o.phone||''}</span></td><td>${o.plate}<br><span class="muted">${o.car||''}</span></td><td>${o.service}</td><td>${money(o.value)}</td><td>${badge(o.status)}</td><td><div class="actions">${o.status!=='Em atendimento'?`<button class="btn secondary" onclick="setStatus(${o.id},'Em atendimento')">Iniciar</button>`:''}${o.status!=='Finalizado'?`<button class="btn primary" onclick="setStatus(${o.id},'Finalizado')">Finalizar</button>`:''}<button class="btn danger" onclick="delOrder(${o.id})">Excluir</button></div></td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma ordem cadastrada.</div>';
-
-  clientsTable.innerHTML=clients.length?`<table><thead><tr><th>Nome</th><th>Telefone</th><th>Placa</th><th>Veículo</th></tr></thead><tbody>${clients.slice().reverse().map(c=>`<tr><td>${c.name}</td><td>${c.phone||''}</td><td>${c.plate||''}</td><td>${c.car||''}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhum cliente cadastrado.</div>';
-
-  const pix=done.filter(o=>o.payment==='PIX').reduce((s,o)=>s+o.value,0);
-  const cash=done.filter(o=>o.payment==='Dinheiro').reduce((s,o)=>s+o.value,0);
-  const card=done.filter(o=>o.payment==='Cartão').reduce((s,o)=>s+o.value,0);
-  cashToday.textContent=money(revenue); cashPix.textContent=money(pix); cashMoney.textContent=money(cash); cashCard.textContent=money(card);
-  cashTable.innerHTML=done.length?`<table><thead><tr><th>OS</th><th>Cliente</th><th>Pagamento</th><th>Valor</th></tr></thead><tbody>${done.map(o=>`<tr><td>#${o.id}</td><td>${o.client}</td><td>${o.payment}</td><td>${money(o.value)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhum recebimento finalizado hoje.</div>';
-}
+const money=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});const todayKey=()=>new Date().toISOString().slice(0,10);const load=(k,d=[])=>JSON.parse(localStorage.getItem(k)||JSON.stringify(d));const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));const CLEAN_VERSION='lj_clean_v1';if(localStorage.getItem(CLEAN_VERSION)!=='1'){localStorage.removeItem('lj_orders');localStorage.removeItem('lj_clients');localStorage.setItem(CLEAN_VERSION,'1')}if(!localStorage.getItem('lj_orders'))save('lj_orders',[]);if(!localStorage.getItem('lj_clients'))save('lj_clients',[]);
+document.getElementById('today').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function showPage(page){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.getElementById(page).classList.add('active');document.querySelector(`.nav button[data-page="${page}"]`).classList.add('active');document.getElementById('pageTitle').textContent={dashboard:'Dashboard',ordens:'Ordens de Serviço',clientes:'Clientes',caixa:'Caixa'}[page];render();window.scrollTo({top:0,behavior:'smooth'})}
+function openOrder(){document.getElementById('orderModal').classList.add('open')}function openClient(){document.getElementById('clientModal').classList.add('open')}function closeModal(id){document.getElementById(id).classList.remove('open')}
+function saveOrder(){const client=document.getElementById('oClient').value.trim(),plate=document.getElementById('oPlate').value.trim().toUpperCase();if(!client||!plate){alert('Informe cliente e placa.');return}const orders=load('lj_orders');const o={id:(orders.length?Math.max(...orders.map(x=>x.id)):1000)+1,date:todayKey(),client,phone:document.getElementById('oPhone').value.trim(),plate,car:document.getElementById('oCar').value.trim(),service:document.getElementById('oService').value,value:Number(document.getElementById('oValue').value||0),status:document.getElementById('oStatus').value,payment:document.getElementById('oPayment').value,notes:document.getElementById('oNotes').value.trim()};orders.push(o);save('lj_orders',orders);let clients=load('lj_clients');if(!clients.some(c=>c.plate===plate)){clients.push({id:Date.now(),name:client,phone:o.phone,plate,car:o.car});save('lj_clients',clients)}closeModal('orderModal');['oClient','oPhone','oPlate','oCar','oNotes'].forEach(id=>document.getElementById(id).value='');render();showPage('ordens')}
+function saveClient(){const name=document.getElementById('cName').value.trim();if(!name){alert('Informe o nome.');return}const clients=load('lj_clients');clients.push({id:Date.now(),name,phone:cPhone.value.trim(),plate:cPlate.value.trim().toUpperCase(),car:cCar.value.trim()});save('lj_clients',clients);closeModal('clientModal');['cName','cPhone','cPlate','cCar'].forEach(id=>document.getElementById(id).value='');render()}
+function setStatus(id,status){save('lj_orders',load('lj_orders').map(o=>o.id===id?{...o,status}:o));render()}function delOrder(id){if(confirm('Excluir esta ordem?')){save('lj_orders',load('lj_orders').filter(o=>o.id!==id));render()}}function badge(status){const cls=status==='Finalizado'?'done':status==='Em atendimento'?'run':'wait';return `<span class="badge ${cls}">${status}</span>`}function wrapTable(html){return `<div class="table-wrap">${html}</div>`}
+function render(){const orders=load('lj_orders'),clients=load('lj_clients'),today=todayKey(),todayOrders=orders.filter(o=>o.date===today),done=todayOrders.filter(o=>o.status==='Finalizado'),open=todayOrders.filter(o=>o.status!=='Finalizado'),revenue=done.reduce((s,o)=>s+Number(o.value||0),0);kpiCars.textContent=todayOrders.length;kpiOpen.textContent=open.length;kpiDone.textContent=done.length;kpiRevenue.textContent=money(revenue);dashOrders.innerHTML=open.length?wrapTable(`<table><thead><tr><th>OS</th><th>Cliente</th><th>Placa</th><th>Serviço</th><th>Status</th></tr></thead><tbody>${open.map(o=>`<tr><td>#${o.id}</td><td>${o.client}</td><td>${o.plate}</td><td>${o.service}</td><td>${badge(o.status)}</td></tr>`).join('')}</tbody></table>`):'<div class="empty">Nenhum veículo em atendimento.</div>';ordersTable.innerHTML=orders.length?wrapTable(`<table><thead><tr><th>OS</th><th>Cliente</th><th>Veículo</th><th>Serviço</th><th>Valor</th><th>Status</th><th>Ações</th></tr></thead><tbody>${orders.slice().reverse().map(o=>`<tr><td>#${o.id}</td><td>${o.client}<br><span class="muted">${o.phone||''}</span></td><td>${o.plate}<br><span class="muted">${o.car||''}</span></td><td>${o.service}</td><td>${money(o.value)}</td><td>${badge(o.status)}</td><td><div class="actions">${o.status!=='Em atendimento'?`<button class="btn secondary" onclick="setStatus(${o.id},'Em atendimento')">Iniciar</button>`:''}${o.status!=='Finalizado'?`<button class="btn primary" onclick="setStatus(${o.id},'Finalizado')">Finalizar</button>`:''}<button class="btn danger" onclick="delOrder(${o.id})">Excluir</button></div></td></tr>`).join('')}</tbody></table>`):'<div class="empty">Nenhuma ordem cadastrada.</div>';clientsTable.innerHTML=clients.length?wrapTable(`<table><thead><tr><th>Nome</th><th>Telefone</th><th>Placa</th><th>Veículo</th></tr></thead><tbody>${clients.slice().reverse().map(c=>`<tr><td>${c.name}</td><td>${c.phone||''}</td><td>${c.plate||''}</td><td>${c.car||''}</td></tr>`).join('')}</tbody></table>`):'<div class="empty">Nenhum cliente cadastrado.</div>';const pix=done.filter(o=>o.payment==='PIX').reduce((s,o)=>s+o.value,0),cash=done.filter(o=>o.payment==='Dinheiro').reduce((s,o)=>s+o.value,0),card=done.filter(o=>o.payment==='Cartão').reduce((s,o)=>s+o.value,0);cashToday.textContent=money(revenue);cashPix.textContent=money(pix);cashMoney.textContent=money(cash);cashCard.textContent=money(card);cashTable.innerHTML=done.length?wrapTable(`<table><thead><tr><th>OS</th><th>Cliente</th><th>Pagamento</th><th>Valor</th></tr></thead><tbody>${done.map(o=>`<tr><td>#${o.id}</td><td>${o.client}</td><td>${o.payment}</td><td>${money(o.value)}</td></tr>`).join('')}</tbody></table>`):'<div class="empty">Nenhum recebimento finalizado hoje.</div>'}
 render();
 </script>
 </body>
